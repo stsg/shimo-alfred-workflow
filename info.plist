@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string></string>
+	<key>category</key>
+	<string>Internet</string>
+	<key>connections</key>
+	<dict>
+		<key>5BBE995D-6577-4C90-BA1F-0AF3B21FD6F4</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>5CF6ACA0-E175-419F-B76E-58FF00C71C48</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>5CF6ACA0-E175-419F-B76E-58FF00C71C48</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>024EB43A-D209-4F88-81A2-69BF2D568832</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string></string>
+	<key>description</key>
+	<string>connect/disconnect vpn</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>shimo</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>shimo</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>please wait</string>
+				<key>script</key>
+				<string># This workflow ships with artwork from Oxygen Icons.
+# For those icons applies the LGPLv3 licence, see
+# http://www.oxygen-icons.org/
+shopt -s nocasematch;echo "&lt;items&gt;";osascript -e 'set text item delimiters to "\n"' -e 'set p to {}' -e 'set i to 0' -e 'tell application "Shimo"' -e 'repeat' -e 'set i to i+1' -e 'try' -e 'set end of p to (name of account i)' -e 'on error errMsg' -e 'exit repeat' -e 'end try' -e 'end repeat' -e 'end tell' -e 'return p as string' | while IFS= read -r line; do if [[ $line == *{query}* ]]; then echo "&lt;item uid=\"\" arg=\"$line\"&gt;&lt;title&gt;$line&lt;/title&gt;";osascript -e 'tell application "Shimo"' -e "set p to profile \"$line\"" -e 'if p is connected then' -e 'set result to "&lt;subtitle&gt;Disconnect from VPN Service&lt;/subtitle&gt;&lt;icon&gt;disconnect.png&lt;/icon&gt;"' -e 'else' -e 'set result to "&lt;subtitle&gt;Connect to VPN Service&lt;/subtitle&gt;&lt;icon&gt;connect.png&lt;/icon&gt;"' -e 'end if' -e 'end tell'; echo "&lt;/item&gt;"; fi; done; echo "&lt;/items&gt;"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>VPN for the rest of us.</string>
+				<key>title</key>
+				<string>Shimo</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>5BBE995D-6577-4C90-BA1F-0AF3B21FD6F4</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>on run argv
+  set theQuery to item 1 of argv
+	tell application "Shimo"		set p to account theQuery		if p is connected then			disconnect account p		else			connect account p		end if	end tell
+  return theQuery
+end run</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>6</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>5CF6ACA0-E175-419F-B76E-58FF00C71C48</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Shimo</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>024EB43A-D209-4F88-81A2-69BF2D568832</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>024EB43A-D209-4F88-81A2-69BF2D568832</key>
+		<dict>
+			<key>xpos</key>
+			<integer>530</integer>
+			<key>ypos</key>
+			<integer>90</integer>
+		</dict>
+		<key>5BBE995D-6577-4C90-BA1F-0AF3B21FD6F4</key>
+		<dict>
+			<key>xpos</key>
+			<integer>60</integer>
+			<key>ypos</key>
+			<integer>90</integer>
+		</dict>
+		<key>5CF6ACA0-E175-419F-B76E-58FF00C71C48</key>
+		<dict>
+			<key>xpos</key>
+			<integer>320</integer>
+			<key>ypos</key>
+			<integer>90</integer>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
