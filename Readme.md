@@ -12,4 +12,5 @@ one is provided.
 
 Selecting account toggles connection status depending on the current status.
 
-
+To install workflow in Alfred, download [latest release](https://github.com/stsg/shimo-alfred-workflow/releases)
+an import it by clicking in Finder.
